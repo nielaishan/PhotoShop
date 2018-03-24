@@ -2,7 +2,23 @@
 #define PHOTOSHOP_H
 
 #include <QMainWindow>
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+#include <QWidget>
+#include <QPalette>
+#include <QToolBar>
+#include <QString>
+#include <QFileDialog>
+#include <QGridLayout>
+#include <QWidget>
+#include <QSplitter>
+#include <QPushButton>
+#include <QApplication>
+#include <QToolBar>
 
+#include "showwidget.h"
+#include "dealpicwidget.h"
 class PhotoShop : public QMainWindow
 {
     Q_OBJECT
@@ -10,6 +26,52 @@ class PhotoShop : public QMainWindow
 public:
     PhotoShop(QWidget *parent = 0);
     ~PhotoShop();
+    void createMenu();
+    void createActions();
+    void setWidget();
+    void createToolBar();
+
+protected:
+    void mousePressEvent ( QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void resizeEvent(QResizeEvent *event);
+
+private slots:
+    void openFileSlot();
+    void slotClickedBtn();
+    void slotSplitterMoved(int pos, int index);
+
+private:
+    ShowWidget *showWidget;
+    QSplitter *splitter;
+    DealPicWidget *dealPicWidget;
+    QPushButton *pushButton;
+    QToolBar *toolBar;
+
+    QMenu *fileMenu;
+    QMenu *editMenu;
+    QMenu *windowMenu;
+    QMenu *helpMenu;
+
+    QAction *openFileAction;
+    QAction *receFileAction;
+    QAction *saveFileAction;
+    QAction *closeFileAction;
+
+    QAction *undoAction;
+    QAction *redoAction;
+
+    QAction *docuAction;
+
+    QAction *zoomInAction;
+    QAction *zoomOutAction;
+
+    QPoint dragPosition;
+    bool bPressFlag;
+
+    void setBtnPos();
+    void setBtnIcon();
 };
 
 #endif // PHOTOSHOP_H

@@ -25,7 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        photoshop.cpp
+        photoshop.cpp \
+    showwidget.cpp \
+    imgsingleton.cpp \
+    dealpicwidget.cpp
 
 HEADERS += \
-        photoshop.h
+        photoshop.h \
+    showwidget.h \
+    imgsingleton.h \
+    dealpicwidget.h
+
+RESOURCES += \
+    resources.qrc
