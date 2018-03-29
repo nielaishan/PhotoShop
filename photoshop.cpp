@@ -2,10 +2,12 @@
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QStackedWidget>
 
 PhotoShop::PhotoShop(QWidget *parent)
     : QMainWindow(parent)
 {
+
     setWidget();
     createActions();
     createToolBar();
@@ -22,9 +24,11 @@ void PhotoShop::setWidget() {
     palette.setColor(QPalette::Background, QColor(59, 59, 59));
     this->setPalette(palette);
     this->resize(QSize(1200, 700));
+//    this->setWindowIcon(QIcon(":/new/prefix1/icon"));       //窗体图标
 
     showWidget = new ShowWidget;
     dealPicWidget = new DealPicWidget;
+
     showWidget->resize(900, height());
     dealPicWidget->resize(300, height());
     showWidget->setMinimumWidth(900);
@@ -160,16 +164,17 @@ void PhotoShop::createMenu() {
 }
 //shez
 void PhotoShop::createToolBar() {
-    toolBar = this->addToolBar(tr("&File"));
+    toolBar = new QToolBar(this);
     toolBar->addAction(openFileAction);
-    toolBar->setStyleSheet("background-color:rgb(0,0,0);color:#d9d9d9");
+    toolBar->setStyleSheet("border: 10px;background-color:rgb(59, 59, 59);color:#d9d9d9");
+    toolBar->setIconSize(QSize(15, 15));
 //    pushButton->setStyleSheet("border:none;");
 }
 
 //建立action
 void PhotoShop::createActions() {
     //打开图片
-    openFileAction = new QAction(tr("open"), this);
+    openFileAction = new QAction(QIcon(":/image/document-open.png"), tr("open"), this);
     openFileAction->setShortcut(tr("Ctrl+O"));
     openFileAction->setStatusTip(tr("open a file"));
     connect(openFileAction, SIGNAL(triggered()), this, SLOT(openFileSlot()));

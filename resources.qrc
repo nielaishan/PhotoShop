@@ -1,2 +1,12 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/image">
+        <file>add.png</file>
+        <file>address-book-new.png</file>
+        <file>application-exit.png</file>
+        <file>appointment-new.png</file>
+        <file>appointment.png</file>
+        <file>back.png</file>
+        <file>bookmark_add.png</file>
+        <file>document-open.png</file>
+    </qresource>
+</RCC>

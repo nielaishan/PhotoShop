@@ -11,6 +11,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = PhotoShop
 TEMPLATE = app
 
+QT_CONFIG -= no-pkg-config
+CONFIG  += link_pkgconfig
+PKGCONFIG += opencv
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -27,15 +31,24 @@ SOURCES += \
         main.cpp \
         photoshop.cpp \
     showwidget.cpp \
-    imgsingleton.cpp \
-    dealpicwidget.cpp
+    dealpicwidget.cpp \
+    filtereffect.cpp \
+    colorwidget.cpp \
+    channelwidget.cpp \
+    commandmanager.cpp
 
 HEADERS += \
         photoshop.h \
     showwidget.h \
-    imgsingleton.h \
-    dealpicwidget.h
+    dealpicwidget.h \
+    filtereffect.h \
+    colorwidget.h \
+    channelwidget.h \
+    commandmanager.h
 
 RESOURCES += \
     resources.qrc
+
+INCLUDEPATH += /usr/local/include
+LIBS +=-L/usr/local/lib -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
 
