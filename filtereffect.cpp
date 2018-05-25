@@ -19,7 +19,6 @@ void FilterEffect::drawWidget() {
     layout4 = new QHBoxLayout;
     layout5 = new QHBoxLayout;
     layout6 = new QHBoxLayout;
-    layout7 = new QHBoxLayout;
 
     layout0->addWidget(sketchPtn);
     layout0->addWidget(carvePtn);
@@ -53,20 +52,15 @@ void FilterEffect::drawWidget() {
 
     layout5->addWidget(fogPtn);
     layout5->addWidget(grayPtn);
-    layout5->addWidget(gradietPtn);
+    layout5->addWidget(pencilPtn);
 
     VLayout->addLayout(layout5);
 
     layout6->addWidget(BWPtn);
     layout6->addWidget(negativePtn);
-    layout6->addWidget(WoodPtn);
+    layout6->addWidget(woodPtn);
 
     VLayout->addLayout(layout6);
-
-    layout7->addWidget(pencilPtn);
-    layout7->addSpacing(200);
-
-    VLayout->addLayout(layout7);
 
     this->setLayout(VLayout);
 }
@@ -111,14 +105,12 @@ void FilterEffect::newParts()
     fogPtn->setText("去雾");
     grayPtn = new QPushButton(this);
     grayPtn->setText("灰度");
-    gradietPtn = new QPushButton(this);
-    gradietPtn->setText("渐变");
     BWPtn = new QPushButton(this);
     BWPtn->setText("黑白");
     negativePtn = new QPushButton(this);
     negativePtn->setText("底片");
-    WoodPtn = new QPushButton(this);
-    WoodPtn->setText("木雕");
+    woodPtn = new QPushButton(this);
+    woodPtn->setText("木雕");
     pencilPtn = new QPushButton(this);
     pencilPtn->setText("铅笔画");
 }
@@ -129,8 +121,64 @@ void FilterEffect::connectFunc() {
     connect(reliefPtn, SIGNAL(clicked(bool)), this, SLOT(setRelief()));
     connect(expandPtn, SIGNAL(clicked(bool)), this, SLOT(setExpand()));
     connect(extrusionPtn, SIGNAL(clicked(bool)), this, SLOT(setExtrusion()));
+    connect(nostalgiaPtn, SIGNAL(clicked(bool)), this, SLOT(setNostalgia()));
+    connect(comicPtn, SIGNAL(clicked(bool)), this, SLOT(setComic()));
+    connect(castPtn, SIGNAL(clicked(bool)), this, SLOT(setCast()));
+    connect(frozenPtn, SIGNAL(clicked(bool)), this, SLOT(setFrozen()));
+    connect(woolGlassPtn, SIGNAL(clicked(bool)), this, SLOT(setWoolGlass()));
+    connect(vuguePtn, SIGNAL(clicked(bool)), this, SLOT(setVugue()));
+    connect(bulgePtn, SIGNAL(clicked(bool)), this, SLOT(setBulge()));
+    connect(sunkenPtn, SIGNAL(clicked(bool)), this, SLOT(setSunken()));
+    connect(mosaicPtn, SIGNAL(clicked(bool)), this, SLOT(setMosaic()));
+    connect(lightPtn, SIGNAL(clicked(bool)), this, SLOT(setLight()));
+    connect(fogPtn, SIGNAL(clicked(bool)), this, SLOT(setFog()));
+    connect(grayPtn, SIGNAL(clicked(bool)), this, SLOT(setGray()));
+    connect(BWPtn, SIGNAL(clicked(bool)), this, SLOT(setBW()));
+    connect(negativePtn, SIGNAL(clicked(bool)), this, SLOT(setNegative()));
+    connect(woodPtn, SIGNAL(clicked(bool)), this, SLOT(setWood()));
+    connect(pencilPtn, SIGNAL(clicked(bool)), this, SLOT(setPencil()));
 }
 
+void FilterEffect::setPencil() {
+    CommandManager::excute("pencil");
+}
+void FilterEffect::setWood() {
+    CommandManager::excute("wood");
+}
+void FilterEffect::setNegative() {
+    CommandManager::excute("negative");
+}
+void FilterEffect::setBW() {
+    CommandManager::excute("BW");
+}
+
+void FilterEffect::setGray() {
+    CommandManager::excute("gray");
+}
+void FilterEffect::setFog() {
+    CommandManager::excute("fog");
+}
+void FilterEffect::setLight() {
+    CommandManager::excute("light");
+}
+void FilterEffect::setMosaic() {
+    CommandManager::excute("mosaic");
+}
+void FilterEffect::setSunken() {
+    CommandManager::excute("sunken");
+}
+void FilterEffect::setBulge() {
+    CommandManager::excute("bulge");
+}
+void FilterEffect::setVugue() {
+    CommandManager::excute("vugue");
+}
+void FilterEffect::setWoolGlass() {
+    CommandManager::excute("woolglass");
+}
+void FilterEffect::setFrozen() {
+    CommandManager::excute("frozen");
+}
 void FilterEffect::setSketch() {
     CommandManager::excute("sketch");
 }
@@ -149,4 +197,16 @@ void FilterEffect::setExpand() {
 
 void FilterEffect::setExtrusion() {
     CommandManager::excute("extrusion");
+}
+
+void FilterEffect::setNostalgia() {
+    CommandManager::excute("nostalgia");
+}
+
+void FilterEffect::setComic() {
+    CommandManager::excute("comic");
+}
+
+void FilterEffect::setCast() {
+    CommandManager::excute("cast");
 }

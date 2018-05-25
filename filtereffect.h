@@ -29,6 +29,23 @@ protected slots:
     void setRelief();
     void setExpand();
     void setExtrusion();
+    void setNostalgia();
+    void setComic();
+    void setCast();
+    void setFrozen();
+    void setWoolGlass();
+    void setVugue();
+    void setBulge();
+    void setSunken();
+    void setMosaic();
+    void setLight();
+    void setFog();
+    void setGray();
+    void setBW();
+    void setNegative();
+    void setWood();
+    void setPencil();
+
 private:
     QHBoxLayout *layout0, *layout1, *layout2, *layout3, *layout4, *layout5, *layout6, *layout7;
     QVBoxLayout *VLayout;
@@ -68,11 +85,9 @@ private:
     QPushButton *fogPtn;
     //灰度 https://blog.csdn.net/matrix_space/article/details/38122673
     QPushButton *grayPtn;
-    //渐变 https://blog.csdn.net/matrix_space/article/details/40477439
-    QPushButton *gradietPtn;
     //黑白 底片http://www.cnblogs.com/biglucky/p/4136946.html
     //木雕 铅笔画 https://blog.csdn.net/superdont/article/details/47111501
-    QPushButton *BWPtn, *negativePtn, *WoodPtn, *pencilPtn;
+    QPushButton *BWPtn, *negativePtn, *woodPtn, *pencilPtn;
 };
 
 #endif // FILTEREFFECT_H

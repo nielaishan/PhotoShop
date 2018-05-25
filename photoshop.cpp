@@ -16,7 +16,7 @@ PhotoShop::PhotoShop(QWidget *parent)
 
 void PhotoShop::setWidget() {
     splitter = new QSplitter(this);
-    this->setWindowTitle(tr("photo shop"));
+    this->setWindowTitle(tr("Photo shop"));
     this->setWindowFlags(Qt::WindowCloseButtonHint);
 
     //设置背景颜色
@@ -44,17 +44,33 @@ void PhotoShop::setWidget() {
     pushButton->setFocusPolicy(Qt::NoFocus);
     pushButton->resize(13, 13);
     pushButton->setText(tr("x"));
-    pushButton->setStyleSheet("border:none;background-color:rgb(0,0,0);color:#d9d9d9");
+    pushButton->setStyleSheet("border:none; background-color:rgb(0,0,0);color:#d9d9d9");
+
+    beforeBtn = new QPushButton(this);
+    beforeBtn->setText(tr("原图"));
+    beforeBtn->setStyleSheet("border:0px groove gray;border-radius:10px;padding:2px 4px; background-color:rgb(248,248,255);color:#778899;");
+    beforeBtn->resize(50, 30);
+    beforeBtn->move(1100, 25);
+    connect(beforeBtn, SIGNAL(released()), this, SLOT(slotSetDealImg()));
+    connect(beforeBtn, SIGNAL(pressed()), this, SLOT(slotSetSrcImg()));
 
     pushButton->move(dealPicWidget->width()-pushButton->width()-2, 25);
     connect(pushButton, SIGNAL(clicked()), this, SLOT(slotClickedBtn()));
 
+    dealPicWidget->setStyleSheet("color:#d9d9d9; border:none");
     dealPicWidget->setMouseTracking(true);
     showWidget->setMouseTracking(true);
     dealPicWidget->installEventFilter(this);
     showWidget->installEventFilter(this);
 }
 
+void PhotoShop::slotSetSrcImg() {
+    ShowWidget::compareImg(true);
+}
+
+void PhotoShop::slotSetDealImg() {
+    ShowWidget::compareImg(false);
+}
 
 void PhotoShop::resizeEvent(QResizeEvent *event)
 {
@@ -203,6 +219,6 @@ void PhotoShop::createActions() {
 void PhotoShop::openFileSlot()
 {
     QString filename;
-    filename=QFileDialog::getOpenFileName(this,tr("选择图像"),"",tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
+    filename=QFileDialog::getOpenFileName(this,tr("选择图像"),"",tr("Images (*.png *.bmp *.jpg *.tif *.GIF *.jpeg)"));
     showWidget->addImg(filename);
 }

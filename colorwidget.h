@@ -5,6 +5,10 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <math.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include "commandmanager.h"
 
 class ColorWidget : public QWidget
 {
@@ -15,10 +19,23 @@ public:
     ~ColorWidget();
 protected:
     void drawWidget();
-
-private:
+    void connectFunc();
     void newParts();
 
+protected slots:
+    void setAutumn();
+    void setBone();
+    void setJet();
+    void setWinter();
+    void setOcean();
+    void setSummer();
+    void setSpring();
+    void setCool();
+    void setHsv();
+    void setPink();
+    void setHot();
+
+private:
     //颜色变换 https://blog.csdn.net/yangtrees/article/details/9096435
     QPushButton *autumnPtn, *bonePtn, *jetPtn, *winterPtn, *oceanPtn, *summerPtn, *springPtn, *coolPtn, *hsvPtn, *pinkPtn, *hotPtn;
 

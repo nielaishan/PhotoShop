@@ -41,12 +41,15 @@ private slots:
     void openFileSlot();
     void slotClickedBtn();
     void slotSplitterMoved(int pos, int index);
+    void slotSetSrcImg();
+    void slotSetDealImg();
 
 private:
     ShowWidget *showWidget;
     QSplitter *splitter;
     DealPicWidget *dealPicWidget;
     QPushButton *pushButton;
+    QPushButton *beforeBtn;
     QToolBar *toolBar;
 
     QMenu *fileMenu;

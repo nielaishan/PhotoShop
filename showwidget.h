@@ -14,6 +14,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <QStack>
 #include "commandmanager.h"
+#include "showwidget.h"
+#include <QDebug>
 
 using namespace cv;
 class ShowWidget : public QWidget
@@ -24,17 +26,14 @@ public:
     void addImg(QString filename);
     void setWidth(int pos);
     static void showImage(QImage Image);
-
-protected:
+    static void showSrcImage();
+    static void compareImg(bool isCompare);
 
 private:
     static QImage *img;
     static QLabel *imgLabel;
+    static QLabel *srcLabel;
     QScrollArea *scrollArea;
-
-signals:
-
-public slots:
 };
 
 #endif // SHOWWIDGET_H

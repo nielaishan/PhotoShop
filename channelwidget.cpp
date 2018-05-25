@@ -5,11 +5,10 @@ ChannelWidget::ChannelWidget(QWidget *parent) :
 {
     newParts();
     drawWidget();
+    connectFunc();
 }
 
-ChannelWidget::~ChannelWidget()
-{
-}
+ChannelWidget::~ChannelWidget(){}
 
 void ChannelWidget::newParts()
 {
@@ -33,4 +32,22 @@ void ChannelWidget::drawWidget() {
     VLayout->addLayout(layout0);
     VLayout->addSpacing(600);
     this->setLayout(VLayout);
+}
+
+void ChannelWidget::connectFunc() {
+    connect(RPtn, SIGNAL(clicked(bool)), this, SLOT(setR()));
+    connect(GPtn, SIGNAL(clicked(bool)), this, SLOT(setG()));
+    connect(BPtn, SIGNAL(clicked(bool)), this, SLOT(setB()));
+}
+
+void ChannelWidget::setR() {
+    CommandManager::excute("R");
+}
+
+void ChannelWidget::setG() {
+    CommandManager::excute("G");
+}
+
+void ChannelWidget::setB() {
+    CommandManager::excute("B");
 }

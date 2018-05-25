@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QStack>
 #include <opencv/cv.h>
+#include <opencv/highgui.h>
 using namespace std;
 using namespace cv;
 
