@@ -7,6 +7,8 @@
 #include <QString>
 #include <QMessageBox>
 #include <QScrollArea>
+#include <QHBoxLayout>
+#include <QWidget>
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -23,7 +25,7 @@ class ShowWidget : public QWidget
     Q_OBJECT
 public:
     explicit ShowWidget(QWidget *parent = nullptr);
-    void addImg(QString filename);
+    bool addImg(QString filename);
     void setWidth(int pos);
     static void showImage(QImage Image);
     static void showSrcImage();
@@ -34,6 +36,7 @@ private:
     static QLabel *imgLabel;
     static QLabel *srcLabel;
     QScrollArea *scrollArea;
+    static QWidget *widget;
 };
 
 #endif // SHOWWIDGET_H

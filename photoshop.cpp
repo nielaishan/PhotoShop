@@ -7,7 +7,7 @@
 PhotoShop::PhotoShop(QWidget *parent)
     : QMainWindow(parent)
 {
-
+    haveImage = false;
     setWidget();
     createActions();
     createToolBar();
@@ -44,7 +44,7 @@ void PhotoShop::setWidget() {
     pushButton->setFocusPolicy(Qt::NoFocus);
     pushButton->resize(13, 13);
     pushButton->setText(tr("x"));
-    pushButton->setStyleSheet("border:none; background-color:rgb(0,0,0);color:#d9d9d9");
+    pushButton->setStyleSheet("border:none; background-color:rgb(0,0,0); color:#d9d9d9");
 
     beforeBtn = new QPushButton(this);
     beforeBtn->setText(tr("原图"));
@@ -167,9 +167,6 @@ void PhotoShop::createMenu() {
     fileMenu->addAction(closeFileAction);
     //Edit菜单栏
     editMenu = menuBar()->addMenu(tr(" Edit "));
-    editMenu->addAction(undoAction);
-    editMenu->addAction(redoAction);
-    editMenu->addSeparator();
     editMenu->addAction(zoomInAction);
     editMenu->addAction(zoomOutAction);
     //Window菜单栏
@@ -178,7 +175,7 @@ void PhotoShop::createMenu() {
     helpMenu = menuBar()->addMenu(tr(" Help "));
     helpMenu->addAction(docuAction);
 }
-//shez
+//设置工具栏
 void PhotoShop::createToolBar() {
     toolBar = new QToolBar(this);
     toolBar->addAction(openFileAction);
@@ -200,15 +197,10 @@ void PhotoShop::createActions() {
     //保存图片
     saveFileAction = new QAction(tr("save"), this);
     saveFileAction->setShortcut(tr("Ctrl+S"));
+    connect(saveFileAction, SIGNAL(triggered()), this, SLOT(saveFileSlot()));
     //关闭图片
     closeFileAction = new QAction(tr("close"), this);
     closeFileAction->setShortcut(tr("Ctrl+Q"));
-    //撤销操作
-    undoAction = new QAction(tr("undo"), this);
-    undoAction->setShortcut(tr("Ctrl+Z"));
-    //恢复操作
-    redoAction = new QAction(tr("redo"), this);
-    redoAction->setShortcut(tr("Ctrl+Shift+Z"));
     //文档说明
     docuAction = new QAction(tr("document"), this);
     //放大
@@ -220,5 +212,19 @@ void PhotoShop::openFileSlot()
 {
     QString filename;
     filename=QFileDialog::getOpenFileName(this,tr("选择图像"),"",tr("Images (*.png *.bmp *.jpg *.tif *.GIF *.jpeg)"));
-    showWidget->addImg(filename);
+    if (showWidget->addImg(filename))
+        haveImage = true;
+    else
+        haveImage = false;
+}
+
+void PhotoShop::saveFileSlot() {
+    if (!haveImage) {
+        NoticeDialog *noticeDialog = new NoticeDialog(this);
+        noticeDialog->setMessage("请先打开图片");
+    }
+    else {
+        QString filename = QFileDialog::getSaveFileName(this, tr("Save Image"),"",tr("Images (*.png *.bmp *.jpg)")); //选择路径
+        CommandManager::excute(filename);
+    }
 }

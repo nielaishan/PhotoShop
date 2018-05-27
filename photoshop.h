@@ -16,7 +16,7 @@
 #include <QPushButton>
 #include <QApplication>
 #include <QToolBar>
-
+#include "noticedialog.h"
 #include "showwidget.h"
 #include "dealpicwidget.h"
 class PhotoShop : public QMainWindow
@@ -39,6 +39,7 @@ protected:
 
 private slots:
     void openFileSlot();
+    void saveFileSlot();
     void slotClickedBtn();
     void slotSplitterMoved(int pos, int index);
     void slotSetSrcImg();
@@ -62,9 +63,6 @@ private:
     QAction *saveFileAction;
     QAction *closeFileAction;
 
-    QAction *undoAction;
-    QAction *redoAction;
-
     QAction *docuAction;
 
     QAction *zoomInAction;
@@ -75,6 +73,8 @@ private:
 
     void setBtnPos();
     void setBtnIcon();
+
+    bool haveImage;
 };
 
 #endif // PHOTOSHOP_H

@@ -4,6 +4,7 @@
 #include <QStack>
 #include <opencv/cv.h>
 #include <QImage>
+#include <QFileDialog>
 #include <opencv2/opencv.hpp>
 #include <opencv/highgui.h>
 #include <opencv/cxcore.h>
@@ -14,6 +15,7 @@
 #include <iostream>
 #include <math.h>
 #include <opencv2/core/types.hpp>
+#include "noticedialog.h"
 #define pi 3.1415926
 using namespace std;
 using namespace cv;
@@ -51,6 +53,9 @@ protected:
     static void colorTrans(int c);
 
     static void selectChannel(QString channel);
+
+    static void saveImage(QString filename);
+
 private:
     static bool isInitImg;
     static void showImage(Mat img, bool styleColor, QImage::Format formatType);

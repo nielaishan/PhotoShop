@@ -3,37 +3,44 @@
 
 QImage *ShowWidget::img = 0;
 QLabel *ShowWidget::imgLabel = 0;
-
+QLabel *ShowWidget::srcLabel = 0;
+QWidget *ShowWidget::widget = 0;
 ShowWidget::ShowWidget(QWidget *parent) : QWidget(parent)
 {
     //设置显示图片的widget
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, QColor(59, 59, 59));
     this->setPalette(palette);
+    widget = new QWidget(this);
+    widget->resize(900, 800);
+    widget->setStyleSheet("border:none;background-color:rgb(33,33,33);");
+    QHBoxLayout *widgetLayout = new QHBoxLayout;
     scrollArea = new QScrollArea(this);
-    imgLabel = new QLabel(this);
+    imgLabel = new QLabel(widget);
     imgLabel->resize(900, 800);
     imgLabel->setStyleSheet("background-color:rgb(33,33,33);");
-
-    srcLabel = new QLabel(this);
+    widgetLayout->addWidget(imgLabel);
+    srcLabel = new QLabel(widget);
     srcLabel->resize(900, 800);
     srcLabel->setStyleSheet("background-color:rgb(33,33,33);");
     srcLabel->hide();
-
+    widgetLayout->addWidget(srcLabel);
+    widget->setLayout(widgetLayout);
     scrollArea->resize(900, 800);
-    scrollArea->setWidget(imgLabel);
-    scrollArea->setWidget(srcLabel);
+    scrollArea->setWidget(widget);
 }
 
-void ShowWidget::addImg(QString filename) {
+bool ShowWidget::addImg(QString filename) {
     //opencv打开图片处理
     if (filename.size() == 0)
-        return ;
+        return false;
     QImage *image = new QImage;
     image->load(filename);
-    qDebug()<<image->format()<<" format";
     Mat cvImage = imread(filename.toLatin1().data(), 1);
     CommandManager::excute("preprocessing", cvImage);
+    if(!cvImage.empty())
+        return true;
+    return false;
 }
 
 void ShowWidget::showImage(QImage Image) {
@@ -49,7 +56,7 @@ void ShowWidget::showImage(QImage Image) {
 
 void ShowWidget::showSrcImage() {
     QPixmap pixmap = QPixmap::fromImage(*img);
-    pixmap = pixmap.scaled(imgLabel->width(), imgLabel->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pixmap = pixmap.scaled(srcLabel->width(), srcLabel->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     //图片居中
     srcLabel->setAlignment(Qt::AlignCenter);
     srcLabel->setPixmap(pixmap);
@@ -58,7 +65,7 @@ void ShowWidget::showSrcImage() {
 void ShowWidget::setWidth(int pos)
 {
     scrollArea->resize(1200-pos, 800);
-    imgLabel->resize(1200-pos-5, 800);
+    widget->resize(1200-pos-5, 800);
 }
 
 void ShowWidget::compareImg(bool isCompare) {

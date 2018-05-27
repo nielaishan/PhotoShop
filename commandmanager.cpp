@@ -11,10 +11,10 @@ const double wFactor=0.95; //w系数 用来调节
 const double min_t =0.1; //最小透射率
 
 CommandManager::CommandManager(){
-//   isInitImg = false;
+   isInitImg = false;
 }
 /*
- * 选择不同的滤镜
+ * 选择不同接口
  */
 void CommandManager::excute(QString styleName, Mat img) {
     qDebug()<<styleName<<endl;
@@ -89,6 +89,8 @@ void CommandManager::excute(QString styleName, Mat img) {
         colorTrans(11);
     else if (styleName.size() == 1)
         selectChannel(styleName);
+    else
+        saveImage(styleName);
 
     if (preOpStr != styleName && !dealImg.empty())
         undoStack->push(dealImg);
@@ -1092,4 +1094,9 @@ void CommandManager::selectChannel(QString channel) {
         showImage(g, false, QImage::Format_Indexed8);
     else
         showImage(b, false, QImage::Format_Indexed8);
+}
+
+void CommandManager::saveImage(QString filename) {
+    string fileAsSave = filename.toStdString();
+    imwrite(fileAsSave, dealImg);
 }

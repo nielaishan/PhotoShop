@@ -35,7 +35,8 @@ SOURCES += \
     filtereffect.cpp \
     colorwidget.cpp \
     channelwidget.cpp \
-    commandmanager.cpp
+    commandmanager.cpp \
+    noticedialog.cpp
 
 HEADERS += \
         photoshop.h \
@@ -44,11 +45,14 @@ HEADERS += \
     filtereffect.h \
     colorwidget.h \
     channelwidget.h \
-    commandmanager.h
+    commandmanager.h \
+    noticedialog.h
 
 RESOURCES += \
     resources.qrc
 
 INCLUDEPATH += /usr/local/include
 LIBS +=-L/usr/local/lib -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
+
+FORMS +=
 
