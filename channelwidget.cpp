@@ -12,12 +12,24 @@ ChannelWidget::~ChannelWidget(){}
 
 void ChannelWidget::newParts()
 {
-    RPtn = new QPushButton(this);
+    RPtn = new QToolButton(this);
     RPtn->setText("R通道");
-    GPtn = new QPushButton(this);
+    RPtn->setIcon(QIcon(":/image/R.png"));
+    RPtn->setIconSize(QSize(60, 48));
+    RPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    GPtn = new QToolButton(this);
     GPtn->setText("G通道");
-    BPtn = new QPushButton(this);
+    GPtn->setIcon(QIcon(":/image/G.png"));
+    GPtn->setIconSize(QSize(60, 48));
+    GPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    BPtn = new QToolButton(this);
     BPtn->setText("B通道");
+    BPtn->setIcon(QIcon(":/image/B.png"));
+    BPtn->setIconSize(QSize(60, 48));
+    BPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
 }
 
 void ChannelWidget::drawWidget() {

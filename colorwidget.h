@@ -2,7 +2,7 @@
 #define COLORWIDGET_H
 
 #include <QWidget>
-#include <QPushButton>
+#include <QToolButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <math.h>
@@ -37,7 +37,7 @@ protected slots:
 
 private:
     //颜色变换 https://blog.csdn.net/yangtrees/article/details/9096435
-    QPushButton *autumnPtn, *bonePtn, *jetPtn, *winterPtn, *oceanPtn, *summerPtn, *springPtn, *coolPtn, *hsvPtn, *pinkPtn, *hotPtn;
+    QToolButton *autumnPtn, *bonePtn, *jetPtn, *winterPtn, *oceanPtn, *summerPtn, *springPtn, *coolPtn, *hsvPtn, *pinkPtn, *hotPtn;
 
     QHBoxLayout *layout0, *layout1, *layout2, *layout3;
     QVBoxLayout *VLayout;

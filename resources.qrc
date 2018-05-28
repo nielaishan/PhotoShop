@@ -8,5 +8,44 @@
         <file>back.png</file>
         <file>bookmark_add.png</file>
         <file>document-open.png</file>
+        <file>document-save.png</file>
+        <file>bulge.png</file>
+        <file>BW.png</file>
+        <file>carve.png</file>
+        <file>cast.png</file>
+        <file>comic.png</file>
+        <file>expand.png</file>
+        <file>extrusion.png</file>
+        <file>fog.png</file>
+        <file>frozen.png</file>
+        <file>gray.png</file>
+        <file>light.png</file>
+        <file>mosaic.png</file>
+        <file>negative.png</file>
+        <file>nostalgia.png</file>
+        <file>pencil.png</file>
+        <file>relief.png</file>
+        <file>sketch.png</file>
+        <file>sunken.png</file>
+        <file>vugue.png</file>
+        <file>wood.png</file>
+        <file>woolGlass.png</file>
+        <file>autumn.png</file>
+        <file>B.png</file>
+        <file>bone.png</file>
+        <file>cool.png</file>
+        <file>G.png</file>
+        <file>hot.png</file>
+        <file>hsv.png</file>
+        <file>jet.png</file>
+        <file>ocean.png</file>
+        <file>pink.png</file>
+        <file>R.png</file>
+        <file>spring.png</file>
+        <file>summer.png</file>
+        <file>winter.png</file>
+    </qresource>
+    <qresource prefix="/qss">
+        <file>qss.qss</file>
     </qresource>
 </RCC>

@@ -1,0 +1,37 @@
+
+QToolButton{
+    color:#778899;
+    border-style:solid;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(255,255,255),
+                            stop: 0.3 rgb(255,255,255),
+                              stop: 1 rgb(255,255,255));
+    border:1px;
+    border-radius:5px;
+    padding:2px 4px;/*border-radius控制圆角大小*/
+}
+QToolButton:hover{  /*鼠标放上后*/
+    color:#000000;
+    border-style:solid;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(0,191,255),
+                            stop: 0.3 rgb(0,191,255),
+                              stop: 1 rgb(0,191,255));
+    border:1px;
+    border-radius:5px;
+    padding:2px 4px;
+}
+QToolButton:pressed{ /*按下按钮后*/
+    color:#778899;
+    border-style:solid;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(255,255,255),
+                            stop: 0.3 rgb(255,255,255),
+                              stop: 1 rgb(255,255,255));
+    border:1px;
+    border-radius:5px;
+    padding:2px 4px;
+}

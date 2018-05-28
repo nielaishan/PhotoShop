@@ -21,7 +21,7 @@ void PhotoShop::setWidget() {
 
     //设置背景颜色
     QPalette palette(this->palette());
-    palette.setColor(QPalette::Background, QColor(59, 59, 59));
+    palette.setColor(QPalette::Background, QColor(245,245,245));
     this->setPalette(palette);
     this->resize(QSize(1200, 700));
 //    this->setWindowIcon(QIcon(":/new/prefix1/icon"));       //窗体图标
@@ -44,7 +44,7 @@ void PhotoShop::setWidget() {
     pushButton->setFocusPolicy(Qt::NoFocus);
     pushButton->resize(13, 13);
     pushButton->setText(tr("x"));
-    pushButton->setStyleSheet("border:none; background-color:rgb(0,0,0); color:#d9d9d9");
+    pushButton->setStyleSheet("border:none; background-color:rgb(255,255,255); color:#000000");
 
     beforeBtn = new QPushButton(this);
     beforeBtn->setText(tr("原图"));
@@ -57,7 +57,7 @@ void PhotoShop::setWidget() {
     pushButton->move(dealPicWidget->width()-pushButton->width()-2, 25);
     connect(pushButton, SIGNAL(clicked()), this, SLOT(slotClickedBtn()));
 
-    dealPicWidget->setStyleSheet("color:#d9d9d9; border:none");
+//    dealPicWidget->setStyleSheet("color:#d9d9d9;");
     dealPicWidget->setMouseTracking(true);
     showWidget->setMouseTracking(true);
     dealPicWidget->installEventFilter(this);
@@ -179,7 +179,8 @@ void PhotoShop::createMenu() {
 void PhotoShop::createToolBar() {
     toolBar = new QToolBar(this);
     toolBar->addAction(openFileAction);
-    toolBar->setStyleSheet("border: 10px;background-color:rgb(59, 59, 59);color:#d9d9d9");
+    toolBar->addAction(saveFileAction);
+    toolBar->setStyleSheet("border: 10px;background-color:rgb(245,245,245);color:#d9d9d9");
     toolBar->setIconSize(QSize(15, 15));
 //    pushButton->setStyleSheet("border:none;");
 }
@@ -195,8 +196,9 @@ void PhotoShop::createActions() {
     receFileAction = new QAction(tr("recent Files"), this);
     receFileAction->setShortcut(tr("Ctrl+R"));
     //保存图片
-    saveFileAction = new QAction(tr("save"), this);
+    saveFileAction = new QAction(QIcon(":/image/document-save.png"), tr("save"), this);
     saveFileAction->setShortcut(tr("Ctrl+S"));
+    openFileAction->setStatusTip(tr("save picture"));
     connect(saveFileAction, SIGNAL(triggered()), this, SLOT(saveFileSlot()));
     //关闭图片
     closeFileAction = new QAction(tr("close"), this);

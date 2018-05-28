@@ -71,48 +71,132 @@ FilterEffect::~FilterEffect()
 
 void FilterEffect::newParts()
 {
-    sketchPtn = new QPushButton(this);
+    sketchPtn = new QToolButton(this);
     sketchPtn->setText("素描");
-    carvePtn = new QPushButton(this);
+    sketchPtn->setIcon(QIcon(":/image/sketch.png"));
+    sketchPtn->setIconSize(QSize(60, 48));
+    sketchPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    carvePtn = new QToolButton(this);
     carvePtn->setText("雕刻");
-    reliefPtn = new QPushButton(this);
+    carvePtn->setIcon(QIcon(":/image/carve.png"));
+    carvePtn->setIconSize(QSize(60, 48));
+    carvePtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    reliefPtn = new QToolButton(this);
     reliefPtn->setText("浮雕");
-    expandPtn = new QPushButton(this);
+    reliefPtn->setIcon(QIcon(":/image/relief.png"));
+    reliefPtn->setIconSize(QSize(60, 48));
+    reliefPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    expandPtn = new QToolButton(this);
     expandPtn->setText("扩张");
-    extrusionPtn = new QPushButton(this);
+    expandPtn->setIcon(QIcon(":/image/expand.png"));
+    expandPtn->setIconSize(QSize(60, 48));
+    expandPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    extrusionPtn = new QToolButton(this);
     extrusionPtn->setText("挤压");
-    nostalgiaPtn = new QPushButton(this);
+    extrusionPtn->setIcon(QIcon(":/image/extrusion.png"));
+    extrusionPtn->setIconSize(QSize(60, 48));
+    extrusionPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    nostalgiaPtn = new QToolButton(this);
     nostalgiaPtn->setText("怀旧");
-    comicPtn = new QPushButton(this);
+    nostalgiaPtn->setIcon(QIcon(":/image/nostalgia.png"));
+    nostalgiaPtn->setIconSize(QSize(60, 48));
+    nostalgiaPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    comicPtn = new QToolButton(this);
     comicPtn->setText("连环画");
-    castPtn = new QPushButton(this);
+    comicPtn->setIcon(QIcon(":/image/comic.png"));
+    comicPtn->setIconSize(QSize(60, 48));
+    comicPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    castPtn = new QToolButton(this);
     castPtn->setText("熔铸");
-    frozenPtn = new QPushButton(this);
+    castPtn->setIcon(QIcon(":/image/cast.png"));
+    castPtn->setIconSize(QSize(60, 48));
+    castPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    frozenPtn = new QToolButton(this);
     frozenPtn->setText("冰冻");
-    woolGlassPtn = new QPushButton(this);
+    frozenPtn->setIcon(QIcon(":/image/frozen.png"));
+    frozenPtn->setIconSize(QSize(60, 48));
+    frozenPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    woolGlassPtn = new QToolButton(this);
     woolGlassPtn->setText("毛玻璃");
-    vuguePtn = new QPushButton(this);
+    woolGlassPtn->setIcon(QIcon(":/image/woolGlass.png"));
+    woolGlassPtn->setIconSize(QSize(60, 48));
+    woolGlassPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    vuguePtn = new QToolButton(this);
     vuguePtn->setText("模糊");
-    bulgePtn = new QPushButton(this);
+    vuguePtn->setIcon(QIcon(":/image/vugue.png"));
+    vuguePtn->setIconSize(QSize(60, 48));
+    vuguePtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    bulgePtn = new QToolButton(this);
     bulgePtn->setText("凸出");
-    sunkenPtn = new QPushButton(this);
+    bulgePtn->setIcon(QIcon(":/image/bulge.png"));
+    bulgePtn->setIconSize(QSize(60, 48));
+    bulgePtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    sunkenPtn = new QToolButton(this);
     sunkenPtn->setText("凹陷");
-    mosaicPtn = new QPushButton(this);
+    sunkenPtn->setIcon(QIcon(":/image/sunken.png"));
+    sunkenPtn->setIconSize(QSize(60, 48));
+    sunkenPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    mosaicPtn = new QToolButton(this);
     mosaicPtn->setText("马赛克");
-    lightPtn = new QPushButton(this);
+    mosaicPtn->setIcon(QIcon(":/image/mosaic.png"));
+    mosaicPtn->setIconSize(QSize(60, 48));
+    mosaicPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    lightPtn = new QToolButton(this);
     lightPtn->setText("强光");
-    fogPtn = new QPushButton(this);
+    lightPtn->setIcon(QIcon(":/image/light.png"));
+    lightPtn->setIconSize(QSize(60, 48));
+    lightPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    fogPtn = new QToolButton(this);
     fogPtn->setText("去雾");
-    grayPtn = new QPushButton(this);
+    fogPtn->setIcon(QIcon(":/image/fog.png"));
+    fogPtn->setIconSize(QSize(60, 48));
+    fogPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    grayPtn = new QToolButton(this);
     grayPtn->setText("灰度");
-    BWPtn = new QPushButton(this);
+    grayPtn->setIcon(QIcon(":/image/gray.png"));
+    grayPtn->setIconSize(QSize(60, 48));
+    grayPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    BWPtn = new QToolButton(this);
     BWPtn->setText("黑白");
-    negativePtn = new QPushButton(this);
+    BWPtn->setIcon(QIcon(":/image/BW.png"));
+    BWPtn->setIconSize(QSize(60, 48));
+    BWPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    negativePtn = new QToolButton(this);
     negativePtn->setText("底片");
-    woodPtn = new QPushButton(this);
+    negativePtn->setIcon(QIcon(":/image/negative.png"));
+    negativePtn->setIconSize(QSize(60, 48));
+    negativePtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    woodPtn = new QToolButton(this);
     woodPtn->setText("木雕");
-    pencilPtn = new QPushButton(this);
+    woodPtn->setIcon(QIcon(":/image/wood.png"));
+    woodPtn->setIconSize(QSize(60, 48));
+    woodPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    pencilPtn = new QToolButton(this);
     pencilPtn->setText("铅笔画");
+    pencilPtn->setIcon(QIcon(":/image/pencil.png"));
+    pencilPtn->setIconSize(QSize(60, 48));
+    pencilPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
 }
 
 void FilterEffect::connectFunc() {

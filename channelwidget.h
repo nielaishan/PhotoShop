@@ -2,7 +2,7 @@
 #define CHANNELWIDGET_H
 
 #include <QWidget>
-#include <QPushButton>
+#include <QToolButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "commandmanager.h"
@@ -29,7 +29,7 @@ private:
     QHBoxLayout *layout0;
     QVBoxLayout *VLayout;
     //三通道 https://blog.csdn.net/matrix_space/article/details/39896567
-    QPushButton *RPtn, *GPtn, *BPtn;
+    QToolButton *RPtn, *GPtn, *BPtn;
 };
 
 #endif // CHANNELWIDGET_H

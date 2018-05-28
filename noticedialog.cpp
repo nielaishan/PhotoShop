@@ -18,7 +18,7 @@ NoticeDialog::NoticeDialog(QWidget *parent) :
     messageLabel->setAlignment(Qt::AlignCenter);
     layout->addWidget(messageLabel);
     this->setLayout(layout);
-
+    //定时关闭对话框
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotClose()));

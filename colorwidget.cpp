@@ -16,28 +16,72 @@ ColorWidget::~ColorWidget()
 
 void ColorWidget::newParts()
 {
-    autumnPtn = new QPushButton(this);
+    autumnPtn = new QToolButton(this);
     autumnPtn->setText("autumn");
-    bonePtn = new QPushButton(this);
+    autumnPtn->setIcon(QIcon(":/image/autumn.png"));
+    autumnPtn->setIconSize(QSize(60, 48));
+    autumnPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    bonePtn = new QToolButton(this);
     bonePtn->setText("bone");
-    jetPtn = new QPushButton(this);
+    bonePtn->setIcon(QIcon(":/image/bone.png"));
+    bonePtn->setIconSize(QSize(60, 48));
+    bonePtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    jetPtn = new QToolButton(this);
     jetPtn->setText("jet");
-    winterPtn = new QPushButton(this);
+    jetPtn->setIcon(QIcon(":/image/jet.png"));
+    jetPtn->setIconSize(QSize(60, 48));
+    jetPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    winterPtn = new QToolButton(this);
     winterPtn->setText("winter");
-    oceanPtn = new QPushButton(this);
+    winterPtn->setIcon(QIcon(":/image/winter.png"));
+    winterPtn->setIconSize(QSize(60, 48));
+    winterPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    oceanPtn = new QToolButton(this);
     oceanPtn->setText("ocean");
-    summerPtn = new QPushButton(this);
+    oceanPtn->setIcon(QIcon(":/image/ocean.png"));
+    oceanPtn->setIconSize(QSize(60, 48));
+    oceanPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    summerPtn = new QToolButton(this);
     summerPtn->setText("summer");
-    springPtn = new QPushButton(this);
+    summerPtn->setIcon(QIcon(":/image/summer.png"));
+    summerPtn->setIconSize(QSize(60, 48));
+    summerPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    springPtn = new QToolButton(this);
     springPtn->setText("spring");
-    coolPtn = new QPushButton(this);
+    springPtn->setIcon(QIcon(":/image/spring.png"));
+    springPtn->setIconSize(QSize(60, 48));
+    springPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    coolPtn = new QToolButton(this);
     coolPtn->setText("cool");
-    hsvPtn = new QPushButton(this);
+    coolPtn->setIcon(QIcon(":/image/cool.png"));
+    coolPtn->setIconSize(QSize(60, 48));
+    coolPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    hsvPtn = new QToolButton(this);
     hsvPtn->setText("hsv");
-    pinkPtn = new QPushButton(this);
+    hsvPtn->setIcon(QIcon(":/image/hsv.png"));
+    hsvPtn->setIconSize(QSize(60, 48));
+    hsvPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    pinkPtn = new QToolButton(this);
     pinkPtn->setText("pink");
-    hotPtn = new QPushButton(this);
+    pinkPtn->setIcon(QIcon(":/image/pink.png"));
+    pinkPtn->setIconSize(QSize(60, 48));
+    pinkPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    hotPtn = new QToolButton(this);
     hotPtn->setText("hot");
+    hotPtn->setIcon(QIcon(":/image/hot.png"));
+    hotPtn->setIconSize(QSize(60, 48));
+    hotPtn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
 }
 
 void ColorWidget::drawWidget() {
@@ -71,7 +115,7 @@ void ColorWidget::drawWidget() {
     layout3->addSpacing(92);
 
     VLayout->addLayout(layout3);
-
+    VLayout->addSpacing(300);
     this->setLayout(VLayout);
 }
 

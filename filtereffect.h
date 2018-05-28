@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <opencv/cv.h>
@@ -50,44 +51,44 @@ private:
     QHBoxLayout *layout0, *layout1, *layout2, *layout3, *layout4, *layout5, *layout6, *layout7;
     QVBoxLayout *VLayout;
     //素描 https://blog.csdn.net/yangtrees/article/details/9115321
-    QPushButton *sketchPtn;
+    QToolButton *sketchPtn;
     //雕刻 https://blog.csdn.net/yangtrees/article/details/9090607
-    QPushButton *carvePtn;
+    QToolButton *carvePtn;
     //浮雕 https://blog.csdn.net/yangtrees/article/details/9095731
-    QPushButton *reliefPtn;
+    QToolButton *reliefPtn;
     //扩张
-    QPushButton *expandPtn;
+    QToolButton *expandPtn;
     //挤压
-    QPushButton *extrusionPtn;
+    QToolButton *extrusionPtn;
     //怀旧 https://blog.csdn.net/yangtrees/article/details/9116337
-    QPushButton *nostalgiaPtn;
+    QToolButton *nostalgiaPtn;
     //连环画
-    QPushButton *comicPtn;
+    QToolButton *comicPtn;
     //熔铸
-    QPushButton *castPtn;
+    QToolButton *castPtn;
     //冰冻
-    QPushButton *frozenPtn;
+    QToolButton *frozenPtn;
     //毛玻璃 https://blog.csdn.net/yangtrees/article/details/9115799
-    QPushButton *woolGlassPtn;
+    QToolButton *woolGlassPtn;
     //模糊
-    QPushButton *vuguePtn;
+    QToolButton *vuguePtn;
 
-    QPushButton *bulgePtn;
+    QToolButton *bulgePtn;
     //凸出 https://blog.csdn.net/matrix_space/article/details/42394249
-    QPushButton *sunkenPtn;
+    QToolButton *sunkenPtn;
     //凹陷 https://blog.csdn.net/matrix_space/article/details/42394549
 
     //马赛克 ：https://blog.csdn.net/matrix_space/article/details/40622159
-    QPushButton *mosaicPtn;
+    QToolButton *mosaicPtn;
     //强光  https://blog.csdn.net/yangtrees/article/details/9206967
-    QPushButton *lightPtn;
+    QToolButton *lightPtn;
     //去雾 https://blog.csdn.net/matrix_space/article/details/40652883
-    QPushButton *fogPtn;
+    QToolButton *fogPtn;
     //灰度 https://blog.csdn.net/matrix_space/article/details/38122673
-    QPushButton *grayPtn;
+    QToolButton *grayPtn;
     //黑白 底片http://www.cnblogs.com/biglucky/p/4136946.html
     //木雕 铅笔画 https://blog.csdn.net/superdont/article/details/47111501
-    QPushButton *BWPtn, *negativePtn, *woodPtn, *pencilPtn;
+    QToolButton *BWPtn, *negativePtn, *woodPtn, *pencilPtn;
 };
 
 #endif // FILTEREFFECT_H
