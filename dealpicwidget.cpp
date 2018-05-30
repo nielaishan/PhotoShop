@@ -20,12 +20,11 @@ DealPicWidget::DealPicWidget(QWidget *parent) : QWidget(parent)
     listWidget->insertItem(2, tr("RGB通道"));
     listWidget->setFlow(QListView::LeftToRight);
     listWidget->setFixedHeight(25);
-    listWidget->setStyleSheet("border:none; border-color:rgb(245,245,245);background-color:rgb(245,245,245); color:#000000; selection-background-color: rgb(0,191,255);");
     stackWidget->addWidget(filterEffect);
     stackWidget->addWidget(colorWidget);
     stackWidget->addWidget(channelWidget);
-    mainLayout->addSpacing(30);
-    hLayout->addSpacing(17);
+    mainLayout->addSpacing(10);
+//    hLayout->addSpacing(10);
     hLayout->addWidget(listWidget);
     mainLayout->addLayout(hLayout);
     mainLayout->addWidget(stackWidget);

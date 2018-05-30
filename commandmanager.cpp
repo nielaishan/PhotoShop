@@ -110,6 +110,7 @@ void CommandManager::preprocessing() {
     Mat kernel(3,3,CV_32F,cv::Scalar(0));
     InitMat(kernel);
     cv::filter2D(tmp, dst, tmp.depth(), kernel);
+    isInitImg = false;
     showImage(dst, true, QImage::Format_RGB32);
 }
 /*

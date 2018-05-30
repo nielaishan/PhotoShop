@@ -10,7 +10,6 @@ PhotoShop::PhotoShop(QWidget *parent)
     haveImage = false;
     setWidget();
     createActions();
-    createToolBar();
     createMenu();
 }
 
@@ -50,11 +49,11 @@ void PhotoShop::setWidget() {
     beforeBtn->setText(tr("原图"));
     beforeBtn->setStyleSheet("border:0px groove gray;border-radius:10px;padding:2px 4px; background-color:rgb(248,248,255);color:#778899;");
     beforeBtn->resize(50, 30);
-    beforeBtn->move(1100, 25);
+    beforeBtn->move(1100, 15);
     connect(beforeBtn, SIGNAL(released()), this, SLOT(slotSetDealImg()));
     connect(beforeBtn, SIGNAL(pressed()), this, SLOT(slotSetSrcImg()));
 
-    pushButton->move(dealPicWidget->width()-pushButton->width()-2, 25);
+    pushButton->move(dealPicWidget->width()-pushButton->width()-2, 5);
     connect(pushButton, SIGNAL(clicked()), this, SLOT(slotClickedBtn()));
 
 //    dealPicWidget->setStyleSheet("color:#d9d9d9;");
@@ -87,7 +86,7 @@ void PhotoShop::setBtnPos()
     }
     else {
         pushButton->resize(13, 13);
-        pushButton->move(dealPicWidget->width()-pushButton->width()-2, 25);
+        pushButton->move(dealPicWidget->width()-pushButton->width()-2, 5);
     }
 }
 //设置按钮的箭头

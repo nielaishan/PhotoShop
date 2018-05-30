@@ -13,7 +13,7 @@ QToolButton{
 }
 QToolButton:hover{  /*鼠标放上后*/
     color:#000000;
-    border-style:solid;
+    border-style: solid;
     border-top-left-radius:2px;
     border-top-right-radius:2px;
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(0,191,255),
@@ -35,3 +35,32 @@ QToolButton:pressed{ /*按下按钮后*/
     border-radius:5px;
     padding:2px 4px;
 }
+
+QListWidget{
+    color:black;
+    background:rgb(255,255,255);
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    border:1px;
+    border-radius:5px;
+}
+
+QListWidget::Item{
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    border:1px;
+    border-radius:5px;
+    padding:1px 3.5px;
+}
+QListWidget::Item:hover{
+    background:rgb(0,191,255);
+}
+QListWidget::item:selected{
+    background:rgb(0,191,255);
+    color:black;
+}
+QListWidget::item:selected:!active{
+    border-width:0px;
+    background:rgb(0,191,255);
+}
+
