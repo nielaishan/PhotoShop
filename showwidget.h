@@ -30,9 +30,9 @@ public:
     static void showImage(QImage Image);
     static void showSrcImage();
     static void compareImg(bool isCompare);
-
-private:
     static QImage *img;
+private:
+
     static QLabel *imgLabel;
     static QLabel *srcLabel;
     QScrollArea *scrollArea;

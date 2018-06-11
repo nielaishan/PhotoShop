@@ -15,7 +15,7 @@ DealPicWidget::DealPicWidget(QWidget *parent) : QWidget(parent)
     font.setLetterSpacing(QFont::AbsoluteSpacing,5);
     font.setPointSize(13);
     listWidget->setFont(font);
-    listWidget->insertItem(0, tr("滤镜效果"));
+    listWidget->insertItem(0, tr("艺术效果"));
     listWidget->insertItem(1, tr("颜色变换"));
     listWidget->insertItem(2, tr("RGB通道"));
     listWidget->setFlow(QListView::LeftToRight);

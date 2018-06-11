@@ -29,7 +29,6 @@ public:
     void createMenu();
     void createActions();
     void setWidget();
-    void createToolBar();
 
 protected:
     void mousePressEvent ( QMouseEvent * event);
@@ -39,11 +38,15 @@ protected:
 
 private slots:
     void openFileSlot();
+    void saveAsFileSlot();
     void saveFileSlot();
     void slotClickedBtn();
     void slotSplitterMoved(int pos, int index);
     void slotSetSrcImg();
     void slotSetDealImg();
+    void slotQuit();
+    void slotRedo();
+    void slotUndo();
 
 private:
     ShowWidget *showWidget;
@@ -55,18 +58,16 @@ private:
 
     QMenu *fileMenu;
     QMenu *editMenu;
-    QMenu *windowMenu;
-    QMenu *helpMenu;
 
     QAction *openFileAction;
     QAction *receFileAction;
     QAction *saveFileAction;
-    QAction *closeFileAction;
+    QAction *saveAsFileAction;
+    QAction *closeAction;
 
-    QAction *docuAction;
 
-    QAction *zoomInAction;
-    QAction *zoomOutAction;
+    QAction *redoAction;
+    QAction *undoAction;
 
     QPoint dragPosition;
     bool bPressFlag;
@@ -75,6 +76,7 @@ private:
     void setBtnIcon();
 
     bool haveImage;
+    QString path;
 };
 
 #endif // PHOTOSHOP_H

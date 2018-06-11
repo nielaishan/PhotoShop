@@ -15,7 +15,7 @@ PhotoShop::PhotoShop(QWidget *parent)
 
 void PhotoShop::setWidget() {
     splitter = new QSplitter(this);
-    this->setWindowTitle(tr("Photo shop"));
+    this->setWindowTitle(tr("Filter Effort"));
     this->setWindowFlags(Qt::WindowCloseButtonHint);
 
     //设置背景颜色
@@ -23,7 +23,7 @@ void PhotoShop::setWidget() {
     palette.setColor(QPalette::Background, QColor(245,245,245));
     this->setPalette(palette);
     this->resize(QSize(1200, 700));
-//    this->setWindowIcon(QIcon(":/new/prefix1/icon"));       //窗体图标
+    this->setWindowIcon(QIcon(":/new/prefix1/icon"));
 
     showWidget = new ShowWidget;
     dealPicWidget = new DealPicWidget;
@@ -56,7 +56,6 @@ void PhotoShop::setWidget() {
     pushButton->move(dealPicWidget->width()-pushButton->width()-2, 5);
     connect(pushButton, SIGNAL(clicked()), this, SLOT(slotClickedBtn()));
 
-//    dealPicWidget->setStyleSheet("color:#d9d9d9;");
     dealPicWidget->setMouseTracking(true);
     showWidget->setMouseTracking(true);
     dealPicWidget->installEventFilter(this);
@@ -160,28 +159,15 @@ void PhotoShop::createMenu() {
     //File菜单栏
     fileMenu = menuBar()->addMenu(tr(" File "));
     fileMenu->addAction(openFileAction);
-    fileMenu->addAction(receFileAction);
+
     fileMenu->addAction(saveFileAction);
+    fileMenu->addAction(saveAsFileAction);
     fileMenu->addSeparator();
-    fileMenu->addAction(closeFileAction);
-    //Edit菜单栏
-    editMenu = menuBar()->addMenu(tr(" Edit "));
-    editMenu->addAction(zoomInAction);
-    editMenu->addAction(zoomOutAction);
-    //Window菜单栏
-    windowMenu = menuBar()->addMenu(tr(" Window "));
+    fileMenu->addAction(closeAction);
     //help菜单栏
-    helpMenu = menuBar()->addMenu(tr(" Help "));
-    helpMenu->addAction(docuAction);
-}
-//设置工具栏
-void PhotoShop::createToolBar() {
-    toolBar = new QToolBar(this);
-    toolBar->addAction(openFileAction);
-    toolBar->addAction(saveFileAction);
-    toolBar->setStyleSheet("border: 10px;background-color:rgb(245,245,245);color:#d9d9d9");
-    toolBar->setIconSize(QSize(15, 15));
-//    pushButton->setStyleSheet("border:none;");
+    editMenu = menuBar()->addMenu(tr(" Edit "));
+    editMenu->addAction(undoAction);
+    editMenu->addAction(redoAction);
 }
 
 //建立action
@@ -197,35 +183,68 @@ void PhotoShop::createActions() {
     //保存图片
     saveFileAction = new QAction(QIcon(":/image/document-save.png"), tr("save"), this);
     saveFileAction->setShortcut(tr("Ctrl+S"));
-    openFileAction->setStatusTip(tr("save picture"));
+    saveFileAction->setStatusTip(tr("save picture"));
     connect(saveFileAction, SIGNAL(triggered()), this, SLOT(saveFileSlot()));
-    //关闭图片
-    closeFileAction = new QAction(tr("close"), this);
-    closeFileAction->setShortcut(tr("Ctrl+Q"));
-    //文档说明
-    docuAction = new QAction(tr("document"), this);
-    //放大
-    zoomInAction = new QAction(tr("zoom in"), this);
-    zoomOutAction = new QAction(tr("zoom out"), this);
+
+    //另存为
+    saveAsFileAction = new QAction(QIcon(":/image/document-save.png"), tr("save As"), this);
+    saveAsFileAction->setShortcut(tr("Ctrl+Alt+S"));
+    saveAsFileAction->setStatusTip(tr("save as picture"));
+    connect(saveAsFileAction, SIGNAL(triggered()), this, SLOT(saveAsFileSlot()));
+
+    //退出
+    closeAction = new QAction(tr("close"), this);
+    closeAction->setShortcut(tr("Ctrl+Q"));
+    connect(closeAction, SIGNAL(triggered()), this, SLOT(slotQuit()));
+    //恢复
+    redoAction = new QAction(tr("redo"), this);
+    redoAction->setShortcut(tr("Ctrl+R"));
+    connect(redoAction, SIGNAL(triggered()), this, SLOT(slotRedo()));
+    //撤销
+    undoAction = new QAction(tr("undo"), this);
+    undoAction->setShortcut(tr("Ctrl+Z"));
+    connect(undoAction, SIGNAL(triggered()), this, SLOT(slotUndo()));
 }
 //打开文件的槽函数
 void PhotoShop::openFileSlot()
 {
-    QString filename;
-    filename=QFileDialog::getOpenFileName(this,tr("选择图像"),"",tr("Images (*.png *.bmp *.jpg *.tif *.GIF *.jpeg)"));
-    if (showWidget->addImg(filename))
+    path=QFileDialog::getOpenFileName(this,tr("选择图像"),"",tr("Images (*.png *.bmp *.jpg *.tiff *.jpeg *.tga)"));
+    if (showWidget->addImg(path))
         haveImage = true;
     else
         haveImage = false;
 }
 
-void PhotoShop::saveFileSlot() {
+void PhotoShop::saveAsFileSlot() {
     if (!haveImage) {
         NoticeDialog *noticeDialog = new NoticeDialog(this);
         noticeDialog->setMessage("请先打开图片");
+        return ;
     }
     else {
-        QString filename = QFileDialog::getSaveFileName(this, tr("Save Image"),"",tr("Images (*.png *.bmp *.jpg)")); //选择路径
-        CommandManager::excute(filename);
+        path = QFileDialog::getSaveFileName(this, tr("Save Image"),"",tr("Images (*.png *.bmp *.jpg *.tga *.tiff)")); //选择路径
+        CommandManager::excute(path);
     }
+}
+
+void PhotoShop::saveFileSlot() {
+    if (!haveImage) {
+        return ;
+    }
+    else {
+        CommandManager::fileName = path;
+        CommandManager::excute("save");
+    }
+}
+
+void PhotoShop::slotQuit() {
+    qApp->quit();
+}
+
+void PhotoShop::slotRedo() {
+    CommandManager::excute("redo");
+}
+
+void PhotoShop::slotUndo() {
+    CommandManager::excute("undo");
 }

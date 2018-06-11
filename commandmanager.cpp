@@ -2,8 +2,11 @@
 
 Mat CommandManager::Image;
 Mat CommandManager::dealImg;
+Mat CommandManager::curImg;
 QString CommandManager::preOpStr="";
+QString CommandManager::fileName="";
 bool CommandManager::isInitImg = false;
+bool CommandManager::saveFlag = false;
 QStack<Mat> *CommandManager::undoStack = new QStack<Mat>();
 QStack<Mat> *CommandManager::redoStack = new QStack<Mat>();
 const double kernRatio=0.01; //自适应核比例
@@ -19,8 +22,10 @@ CommandManager::CommandManager(){
 void CommandManager::excute(QString styleName, Mat img) {
     qDebug()<<styleName<<endl;
     if (styleName == "preprocessing") {
+        isInitImg = false;
         Image = img;
         undoStack->clear();
+        redoStack->clear();
         preprocessing();
     }
     else if (styleName == "sketch")
@@ -89,11 +94,14 @@ void CommandManager::excute(QString styleName, Mat img) {
         colorTrans(11);
     else if (styleName.size() == 1)
         selectChannel(styleName);
+    else if (styleName == "save")
+        saveImage();
+    else if (styleName == "redo")
+        redo();
+    else if (styleName == "undo")
+        undo();
     else
-        saveImage(styleName);
-
-    if (preOpStr != styleName && !dealImg.empty())
-        undoStack->push(dealImg);
+        saveAsImage(styleName);
     preOpStr = styleName;
 }
 /*
@@ -104,20 +112,19 @@ void CommandManager::preprocessing() {
     Mat tmp, dst;
     dst = Image;
     cvtColor(dst, tmp, CV_RGB2RGBA);
-    // 先用使用 3x3内核来降噪 中值滤波器去噪
-    medianBlur(tmp, dst, 3);
+    // 先用使用 3x3 内核来降噪 中值滤波器去噪
+//    medianBlur(tmp, dst, 3);
     //锐化
-    Mat kernel(3,3,CV_32F,cv::Scalar(0));
-    InitMat(kernel);
-    cv::filter2D(tmp, dst, tmp.depth(), kernel);
-    isInitImg = false;
+//    Mat kernel(3,3,CV_32F,cv::Scalar(0));
+//    InitMat(kernel);
+//    cv::filter2D(tmp, dst, tmp.depth(), kernel);
     showImage(dst, true, QImage::Format_RGB32);
 }
 /*
  * 素描
  */
 void CommandManager::sketch() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     int width=Image.cols;
     int heigh=Image.rows;
@@ -149,7 +156,7 @@ void CommandManager::sketch() {
  * 浮雕
  */
 void CommandManager::relief() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src = Image;
     Mat img0(src.size(),CV_8UC3);
@@ -179,7 +186,7 @@ void CommandManager::relief() {
  * 雕刻
  */
 void CommandManager::carve() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src = Image;
     Mat img0(src.size(),CV_8UC3);
@@ -208,7 +215,7 @@ void CommandManager::carve() {
  * 扩大
  */
 void CommandManager::expand() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src = Image;
     int width = src.cols;
@@ -243,7 +250,7 @@ void CommandManager::expand() {
  * 挤压
  */
 void CommandManager::extrusion() {
-    if (undoStack->size() == 0 || Image.empty())
+    if (Image.empty())
         return ;
     Mat src = Image;
     int width = src.cols;
@@ -282,7 +289,7 @@ void CommandManager::extrusion() {
  * 怀旧
  */
 void CommandManager::nostalgia() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src = Image;
     int width=src.cols;
@@ -323,7 +330,7 @@ void CommandManager::nostalgia() {
  * 连环画
  */
 void CommandManager::comic() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src  = Image;
     int width=src.cols;
@@ -371,7 +378,7 @@ void CommandManager::InitMat(Mat &kernel)
  * 熔铸
  */
 void CommandManager::cast() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src;
     Image.copyTo(src);
@@ -407,7 +414,7 @@ void CommandManager::cast() {
  * 冰冻
  */
 void CommandManager::frozen() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src;
     Image.copyTo(src);
@@ -442,14 +449,13 @@ void CommandManager::frozen() {
  * 毛玻璃
  */
 void CommandManager::woolGlass() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat imageSource = Image;
     Mat imageResult = imageSource.clone();
     RNG rng;
     int randomNum;
     int Number = max(imageSource.rows, imageSource.cols)/100*2;
-    cout<<imageSource.rows<<' '<<imageSource.cols<<' '<<Number<<endl;
     for (int i = 0; i < imageSource.rows-5; i++)
         for (int j = 0; j < imageSource.cols-5; j++)
         {
@@ -464,18 +470,18 @@ void CommandManager::woolGlass() {
  * 模糊
  */
 void CommandManager::vugue() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src = Image;
-    Mat dst;
-    GaussianBlur(src, dst, Size(45,45), 0);
+Mat dst;
+GaussianBlur(src, dst, Size(45,45), 0);
     showImage(dst, true, QImage::Format_RGB32);
 }
 /*
  * 凸出
  */
 void CommandManager::bulge() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat Img;
     Img=Image;
@@ -553,7 +559,7 @@ void CommandManager::bulge() {
  * 凹陷
  */
 void CommandManager::sunken() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat Img;
     Img=Image;
@@ -632,11 +638,11 @@ void CommandManager::sunken() {
  * 马赛克
  */
 void CommandManager::mosaic() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat mat_image_src=Image;
 
-    //第二步：确定宽高
+    //第一步：确定宽高
     int width = mat_image_src.cols;
     int height = mat_image_src.rows;
     cout<<width<<' '<<height<<endl;
@@ -653,7 +659,7 @@ void CommandManager::mosaic() {
     //为了不影响原始图片
     Mat mat_image_clone = mat_image_dst.clone();
 
-    //第三步：马赛克处理
+    //第二步：马赛克处理
     //分析马赛克算法原理
     //level = 3-> 3 * 3矩形
     //动态的处理
@@ -694,7 +700,7 @@ void CommandManager::mosaic() {
  * 强光
  */
 void CommandManager::light() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat img;
     Image.copyTo(img);
@@ -742,7 +748,7 @@ void CommandManager::light() {
  * 去雾
  */
 void CommandManager::fog() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src, m_tImage, m_dstImage;
     Image.copyTo(src);
@@ -938,7 +944,7 @@ Mat CommandManager::minRGB(Mat src)
  * 灰度
  */
 void CommandManager::gray() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat srcImage, srcGray;
     Image.copyTo(srcImage);
@@ -949,7 +955,7 @@ void CommandManager::gray() {
  * 铅笔画
  */
 void CommandManager::pencil() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat srcImage;
     Image.copyTo(srcImage);
@@ -987,7 +993,7 @@ void CommandManager::pencil() {
  * 反光
  */
 void CommandManager::negative() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat srcImage;
     Image.copyTo(srcImage);
@@ -1006,7 +1012,7 @@ void CommandManager::negative() {
  * 黑白
  */
 void CommandManager::BW() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat srcImage, srcGray;
     Image.copyTo(srcImage);
@@ -1017,7 +1023,7 @@ void CommandManager::BW() {
  * 木雕
  */
 void CommandManager::wood() {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat srcImage;
     Image.copyTo(srcImage);
@@ -1067,7 +1073,7 @@ void CommandManager::showImage(Mat image, bool styleColor, QImage::Format format
  * 颜色转变
  */
 void CommandManager::colorTrans(int c) {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src;
     Image.copyTo(src);
@@ -1080,7 +1086,7 @@ void CommandManager::colorTrans(int c) {
  * 通道
  */
 void CommandManager::selectChannel(QString channel) {
-    if (undoStack->size() == 0 ||  Image.empty())
+    if (Image.empty())
         return ;
     Mat src;
     Image.copyTo(src);
@@ -1089,6 +1095,7 @@ void CommandManager::selectChannel(QString channel) {
     Mat b = dst[0];
     Mat g = dst[1];
     Mat r = dst[2];
+
     if (channel == "R")
         showImage(r, false, QImage::Format_Indexed8);
     else if (channel == "G")
@@ -1097,7 +1104,73 @@ void CommandManager::selectChannel(QString channel) {
         showImage(b, false, QImage::Format_Indexed8);
 }
 
-void CommandManager::saveImage(QString filename) {
+void CommandManager::saveAsImage(QString filename) {
     string fileAsSave = filename.toStdString();
+    fileName = filename;
     imwrite(fileAsSave, dealImg);
+    undoStack->clear();
+    redoStack->clear();
+    curImg = dealImg;
+    Image = imread(fileAsSave);
+    isInitImg = false;
+    dealImg = Image;
+    preprocessing();
+}
+
+void CommandManager::saveImage() {
+    string fileAsSave = fileName.toStdString();
+    imwrite(fileAsSave, dealImg);
+    if (undoStack->size() != 0 && compareMat(dealImg, undoStack->top()))
+        return ;
+    undoStack->push(Image);
+    curImg = dealImg;
+    Image = imread(fileAsSave);
+    preprocessing();
+}
+
+void CommandManager::undo() {
+    if (undoStack->empty()) {
+        return ;
+    }
+    else {
+        Image = undoStack->top();
+        redoStack->push(curImg);
+        undoStack->pop();
+        curImg = Image;
+    }
+    imwrite(fileName.toStdString(), Image);
+    Image = imread(fileName.toStdString());
+    preprocessing();
+}
+
+void CommandManager::redo() {
+    if (redoStack->empty())
+        return ;
+    else {
+        Image = redoStack->top();
+        undoStack->push(curImg);
+        redoStack->pop();
+        curImg = Image;
+    }
+    imwrite(fileName.toStdString(), Image);
+    Image = imread(fileName.toStdString());
+    preprocessing();
+}
+
+bool CommandManager::compareMat(const cv::Mat mat1, const cv::Mat mat2) {
+    if (mat1.empty() && mat2.empty()) {
+        return true;
+    }
+    if (mat1.cols != mat2.cols || mat1.rows != mat2.rows || mat1.dims != mat2.dims||
+        mat1.channels()!=mat2.channels()) {
+        return false;
+    }
+    if (mat1.size() != mat2.size() || mat1.channels() != mat2.channels() || mat1.type() != mat2.type()) {
+        return false;
+    }
+    unsigned long nrOfElements1 = mat1.total()*mat1.elemSize();
+    if (nrOfElements1 != mat2.total()*mat2.elemSize())
+        return false;
+    bool lvRet = memcmp(mat1.data, mat2.data, nrOfElements1) == 0;
+    return lvRet;
 }

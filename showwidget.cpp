@@ -17,12 +17,12 @@ ShowWidget::ShowWidget(QWidget *parent) : QWidget(parent)
     QHBoxLayout *widgetLayout = new QHBoxLayout;
     scrollArea = new QScrollArea(this);
     imgLabel = new QLabel(widget);
-    imgLabel->resize(900, 800);
+    imgLabel->resize(900, 800);;
     imgLabel->setStyleSheet("background-color:rgb(33,33,33);");
     widgetLayout->addWidget(imgLabel);
     srcLabel = new QLabel(widget);
-    srcLabel->resize(900, 800);
     srcLabel->setStyleSheet("background-color:rgb(33,33,33);");
+    srcLabel->resize(900, 800);
     srcLabel->hide();
     widgetLayout->addWidget(srcLabel);
     widget->setLayout(widgetLayout);
@@ -55,11 +55,11 @@ void ShowWidget::showImage(QImage Image) {
 }
 
 void ShowWidget::showSrcImage() {
-    QPixmap pixmap = QPixmap::fromImage(*img);
-    pixmap = pixmap.scaled(srcLabel->width(), srcLabel->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap srcPixmap = QPixmap::fromImage(*img);
+    srcPixmap = srcPixmap.scaled(srcLabel->width(), srcLabel->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     //图片居中
     srcLabel->setAlignment(Qt::AlignCenter);
-    srcLabel->setPixmap(pixmap);
+    srcLabel->setPixmap(srcPixmap);
 }
 
 void ShowWidget::setWidth(int pos)
@@ -78,3 +78,4 @@ void ShowWidget::compareImg(bool isCompare) {
         imgLabel->show();
     }
 }
+

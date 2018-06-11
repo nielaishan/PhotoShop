@@ -16,6 +16,7 @@
 #include <math.h>
 #include <opencv2/core/types.hpp>
 #include "noticedialog.h"
+
 #define pi 3.1415926
 using namespace std;
 using namespace cv;
@@ -24,6 +25,8 @@ class CommandManager
 public:
     CommandManager();
     static void excute(QString styleNamem, Mat img=Mat(1000, 1000, CV_8UC3));
+    static QString fileName;
+
 protected:
     static void frozen();
     static void woolGlass();
@@ -54,13 +57,21 @@ protected:
 
     static void selectChannel(QString channel);
 
-    static void saveImage(QString filename);
+    static void saveAsImage(QString filename);
+
+    static void saveImage();
+
+    static void redo();
+
+    static void undo();
 
 private:
     static bool isInitImg;
+    static bool saveFlag;
     static void showImage(Mat img, bool styleColor, QImage::Format formatType);
     static Mat Image;
     static Mat dealImg;
+    static Mat curImg;
     static QStack<Mat> *undoStack;
     static QStack<Mat> *redoStack;
     static QString preOpStr;
@@ -68,6 +79,7 @@ private:
     static Mat minFilter(Mat src, int ksize);
     static Mat grayStretch(const Mat src, double lowcut, double highcut);
     static Mat guildFilter(Mat g, Mat p, int ksize);
+    static bool compareMat(const cv::Mat mat1, const cv::Mat mat2);
 };
 
 #endif // COMMANDMANAGER_H
